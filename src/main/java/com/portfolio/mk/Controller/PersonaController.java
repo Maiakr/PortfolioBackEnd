@@ -1,12 +1,9 @@
 package com.portfolio.mk.Controller;
 
-import com.portfolio.mk.Dto.dtoEducacion;
 import com.portfolio.mk.Dto.dtoPersona;
-import com.portfolio.mk.Entity.Educacion;
 import com.portfolio.mk.Entity.Persona;
 import com.portfolio.mk.Security.Controller.Mensaje;
 import com.portfolio.mk.Service.ImpPersonaService;
-import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/personas")
-@CrossOrigin(origins = {"https://frontendmk-a7321.web.app","http://localhost:4200"})
+@CrossOrigin(origins = "http://localhost:4200")
 
 public class PersonaController {
     @Autowired
@@ -37,7 +34,8 @@ public class PersonaController {
         Persona persona = personaService.getOne(id).get();
         return new ResponseEntity(persona, HttpStatus.OK);
     }
-    /**@PostMapping("/create")
+    /**
+     * @param id * @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody dtoPersona dtopersona) {
         if (StringUtils.isBlank(dtopersona.getNombre())) {
             return new ResponseEntity(new Mensaje("El nombre es obligatorio"), HttpStatus.BAD_REQUEST);
@@ -49,7 +47,9 @@ public class PersonaController {
         );
         personaService.save(persona);
         return new ResponseEntity(new Mensaje("Persona agregada"), HttpStatus.OK);
-    }**/
+    }
+     * @param dtopersona
+     * @return **/
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody dtoPersona dtopersona){
         if(!personaService.existsById(id)){
